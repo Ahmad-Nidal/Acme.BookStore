@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 namespace Acme.BookStore.Books;
 
 public class BookAppService : 
-    CrudAppService< //CRUD methods
+    CrudAppService< //CRUD methods: GetAsync, GetListAsync, CreateAsync, UpdateAsync and DeleteAsync
         Book, //The Book entity
         BookDto, //Used to show books
         Guid, //Primary key of the book entity

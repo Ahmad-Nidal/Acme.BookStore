@@ -53,7 +53,8 @@ public class BookStoreMenuContributor : IMenuContributor
         }
         else
         {
-            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+            // TODO: Unreachable code
+            // administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
         }
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);

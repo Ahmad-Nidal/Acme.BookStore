@@ -7,3 +7,7 @@ ABP based web application named Acme.BookStore, which is used to manage a list o
     Blazor Server as the UI Framework.
  
 by following ABP.io tutorial: https://docs.abp.io/en/abp/latest/Tutorials/Part-1?UI=BlazorServer&DB=EF
+
+Tasks:
+- Compare between Books and Authors implementation
+- TODOs

@@ -8,7 +8,7 @@ namespace Acme.BookStore.Authors;
 public class Author : FullAuditedAggregateRoot<Guid>
 {
     public string Name { get; private set; }
-    public DateTime BrithDate { get; set; }
+    public DateTime BirthDate { get; set; }
     public string ShortBio { get; set; }
 
     private Author()
@@ -19,12 +19,12 @@ public class Author : FullAuditedAggregateRoot<Guid>
     internal Author(
         Guid id,
         [NotNull] string name,
-        DateTime brithDate,
+        DateTime birthDate,
         [CanBeNull] string shortBio = null)
         : base(id)
     {
         SetName(name);
-        BrithDate = brithDate;
+        BirthDate = birthDate;
         ShortBio = shortBio;
     }
 

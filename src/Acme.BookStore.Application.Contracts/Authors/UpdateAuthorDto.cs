@@ -10,7 +10,7 @@ public class UpdateAuthorDto
     public string Name { get; set; }
     
     [Required]
-    public DateTime BrithDate { get; set; }
+    public DateTime BirthDate { get; set; }
     
     public string ShortBio { get; set; }
 }

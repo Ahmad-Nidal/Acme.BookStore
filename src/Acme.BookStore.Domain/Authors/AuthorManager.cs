@@ -15,7 +15,7 @@ public class AuthorManager : DomainService
         _authorRepository = authorRepository;
     }
 
-    public async Task<Author> CreatAsync(
+    public async Task<Author> CreateAsync(
         [NotNull]string name,
         DateTime birthDate,
         [CanBeNull] string shortBio = null)

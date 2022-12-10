@@ -39,10 +39,10 @@ namespace Acme.BookStore.Authors
         public async Task Should_Create_A_New_Author()
         {
             var authorDto = await _authorAppService.CreateAsync(
-                new CreatAuthorDto
+                new CreateAuthorDto
                 {
                     Name = "Edward Bellamy",
-                    BrithDate = new DateTime(1850, 05, 22),
+                    BirthDate = new DateTime(1850, 05, 22),
                     ShortBio = "Edward Bellamy was an American author..."
                 }
             );
@@ -57,10 +57,10 @@ namespace Acme.BookStore.Authors
             await Assert.ThrowsAsync<AuthorAlreadyExistingException>(async () =>
             {
                 await _authorAppService.CreateAsync(
-                    new CreatAuthorDto  
+                    new CreateAuthorDto  
                     {
                         Name = "Douglas Adams",
-                        BrithDate = DateTime.Now,
+                        BirthDate = DateTime.Now,
                         ShortBio = "..."
                     }
                 );

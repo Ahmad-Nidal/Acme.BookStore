@@ -29,7 +29,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
         // return new AuthorDto()
         // {
         //     Name = author.Name,
-        //     BrithDate = author.BrithDate,
+        //     BirthDate = author.BirthDate,
         //     ShortBio = author.ShortBio
         // };
     }
@@ -57,11 +57,11 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
     }
 
     [Authorize(BookStorePermissions.Authors.Create)]
-    public async Task<AuthorDto> CreateAsync(CreatAuthorDto input)
+    public async Task<AuthorDto> CreateAsync(CreateAuthorDto input)
     {
-        var author = await _authorManager.CreatAsync(
+        var author = await _authorManager.CreateAsync(
             input.Name,
-            input.BrithDate,
+            input.BirthDate,
             input.ShortBio);
         await _authorRepository.InsertAsync(author);
 
@@ -78,7 +78,7 @@ public class AuthorAppService : BookStoreAppService, IAuthorAppService
             await _authorManager.ChangeNameAsync(author, input.Name);
         }
 
-        author.BrithDate = input.BrithDate;
+        author.BirthDate = input.BirthDate;
         author.ShortBio = input.ShortBio;
 
         await _authorRepository.UpdateAsync(author);

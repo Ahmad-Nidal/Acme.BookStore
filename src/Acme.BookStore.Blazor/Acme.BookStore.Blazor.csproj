@@ -42,6 +42,9 @@
     <Content Remove="Logs\**" />
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="Logs\**" />
+    <Compile Update="Pages\Authors.razor.cs">
+      <DependentUpon>Authors.razor.razor</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

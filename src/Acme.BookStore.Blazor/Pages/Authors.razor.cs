@@ -78,8 +78,6 @@ namespace Acme.BookStore.Blazor.Pages
         private async Task OnDataGridReadAsync(DataGridReadDataEventArgs<AuthorDto> e)
         {
             CurrentSorting = e.Columns
-                // .Where(c => c.Direction != SortDirection.None) // Cannot resolve symbol 'Direction' - Cannot resolve symbol 'None'
-                // .Select(c => c.Field + (c.Direction == SortDirection.Descending ? " DESC" : ""))
                 .Where(c => c.SortDirection != SortDirection.Default)
                 .Select(c => c.Field + (c.SortDirection == SortDirection.Descending ? " DESC" : ""))
                 .JoinAsString(",");
@@ -131,7 +129,6 @@ namespace Acme.BookStore.Blazor.Pages
 
         private async Task CreateAuthorAsync()
         {
-            // if (CreateValidationsRef.ValidateAll()) // Cannot implicitly convert type 'System.Threading.Tasks.Task<bool>' to 'bool'
             if (CreateValidationsRef.ValidateAll() != null)
             {
                 await AuthorAppService.CreateAsync(NewAuthor);
@@ -142,7 +139,6 @@ namespace Acme.BookStore.Blazor.Pages
 
         private async Task UpdateAuthorAsync()
         {
-            // if (EditValidationsRef.ValidateAll()) // Cannot implicitly convert type 'System.Threading.Tasks.Task<bool>' to 'bool'
             if (EditValidationsRef.ValidateAll() != null)
             {
                 await AuthorAppService.UpdateAsync(EditingAuthorId, EditingAuthor);

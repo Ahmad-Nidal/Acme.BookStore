@@ -15,4 +15,5 @@ public class CreateUpdateBookDto
     public DateTime PublishDate { get; set; } = DateTime.Now;
     [Required]
     public float Price { get; set; }
+    public Guid AuthorId { get; set; }
 }

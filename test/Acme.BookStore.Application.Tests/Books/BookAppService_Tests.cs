@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Acme.BookStore.Authors;
 using Shouldly;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Validation;
@@ -11,10 +12,12 @@ namespace Acme.BookStore.Books
     public class BookAppService_Tests : BookStoreApplicationTestBase
     {
         private readonly IBookAppService _bookAppService;
+        private readonly IAuthorAppService _authorAppService;
 
         public BookAppService_Tests()
         {
             _bookAppService = GetRequiredService<IBookAppService>();
+            _authorAppService = GetRequiredService<IAuthorAppService>();
         }
 
         [Fact]
@@ -27,25 +30,33 @@ namespace Acme.BookStore.Books
 
             //Assert
             result.TotalCount.ShouldBeGreaterThan(0);
-            result.Items.ShouldContain(b => b.Name == "1984"); // We know that is there
+            result.Items.ShouldContain(b => b.Name == "1984" &&
+                                       b.AuthorName == "George Orwell"); // We know
         }
 
         [Fact]
         public async Task Should_Create_A_Valid_Book()
         {
+            var authors = await _authorAppService.GetListAsync(new GetAuthorListDto());
+            var firstAuthor = authors.Items.First();
+
             //Act
             var result = await _bookAppService.CreateAsync(
                 new CreateUpdateBookDto
                 {
-                    Name = "New Test Book 01",
+                    AuthorId = firstAuthor.Id,
+                    Name = "New test book 42",
                     Price = 10,
-                    PublishDate = DateTime.Now,
-                    Type = BookType.Adventure
-                });
+                    PublishDate = System.DateTime.Now,
+                    Type = BookType.ScienceFiction
+                }
+            );
+
             //Assert
             result.Id.ShouldNotBe(Guid.Empty);
-            result.Name.ShouldBe("New Test Book 01");
+            result.Name.ShouldBe("New test book 42");
         }
+
         [Fact]
         public async Task Should_Not_Create_A_Book_Without_Name()
         {
@@ -54,7 +65,7 @@ namespace Acme.BookStore.Books
                 await _bookAppService.CreateAsync(
                     new CreateUpdateBookDto
                     {
-                        Name = "", // Error cause
+                        Name = "",
                         Price = 10,
                         PublishDate = DateTime.Now,
                         Type = BookType.ScienceFiction
@@ -63,8 +74,7 @@ namespace Acme.BookStore.Books
             });
 
             exception.ValidationErrors
-                .ShouldContain(err => err.MemberNames.Any(mem => mem == "Name"));
+                .ShouldContain(err => err.MemberNames.Any(m => m == "Name"));
         }
-
     }
 }

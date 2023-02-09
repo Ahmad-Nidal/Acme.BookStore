@@ -34,28 +34,29 @@ public class BookStoreMenuContributor : IMenuContributor
                 order: 0
             )
         );
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                "BooksStore",
-                l["Menu:BookStore"],
-                icon: "fa fa-book"
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "BooksStore.Books",
-                    l["Menu:Books"],
-                    url: "/books"
-                )
-            )
-        );
         
-        if (context.IsGrantedAsync(BookStorePermissions.Authors.Default) != null) // != null
+        if (context.IsGrantedAsync(BookStorePermissions.Authors.Default) != null)
         {
-            //TODO: The line below was bookStoreMenu
-            context.Menu.AddItem(new ApplicationMenuItem(
-                "BooksStore.Authors",
-                l["Menu:Authors"],
-                url: "/authors"
-            ));
+            context.Menu.AddItem(
+                new ApplicationMenuItem(
+                    "BooksStore",
+                    l["Menu:BookStore"],
+                    icon: "fa fa-book"
+                ).AddItem(
+                    new ApplicationMenuItem(
+                        "BooksStore.Books",
+                        l["Menu:Books"],
+                        url: "/books"
+                    )
+                )
+                .AddItem(
+                    new ApplicationMenuItem(
+                    "BooksStore.Authors",
+                    l["Menu:Authors"],
+                    url: "/authors"
+                    )
+                )
+            );
         }
 
         if (MultiTenancyConsts.IsEnabled)
